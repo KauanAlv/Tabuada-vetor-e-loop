@@ -7,7 +7,8 @@ public class Usuario {
     public int multiplicando;
     public int multiplicadorInicial;
     public int multiplicadorFinal;
-    public double[] tabuada;
+    public int tamanho;
+    public String[] tabuada;
 
     public void obterInformacoes(){
         Scanner leitor = new Scanner(System.in);
@@ -20,6 +21,40 @@ public class Usuario {
         System.out.print("Qual o valor do multiplicador final? ");
         multiplicadorFinal = leitor.nextInt();
 
+        calcularInformacoes();
     }
 
+    public void calcularInformacoes(){
+        int apoio = 0;
+
+        if (multiplicadorFinal < multiplicadorInicial){
+           apoio = multiplicadorFinal;
+           multiplicadorFinal = multiplicadorInicial;
+           multiplicadorInicial = apoio;
+        }
+
+        tamanho = multiplicadorFinal - multiplicadorInicial + 1;
+        tabuada = new String[tamanho];
+
+        int i = 0;
+        while (i < tamanho){
+            int resultado = multiplicando * multiplicadorInicial;
+            tabuada[i] = multiplicando + " x " + multiplicadorInicial + " = " + resultado;
+            multiplicadorInicial = multiplicadorInicial + 1;
+            i = i + 1;
+
+            exibirTabuada();
+        }
+
+    }
+
+    public void exibirTabuada(){
+        System.out.println("Resultado da tabuada: ");
+
+        int i = 0;
+        while (i < tamanho){
+            System.out.println(tabuada[i]);
+            i++; // é o mesmo que i = i + 1, sempre que ela for ela mesma + 1, pode usar o "++"
+        }
+    }
 }
