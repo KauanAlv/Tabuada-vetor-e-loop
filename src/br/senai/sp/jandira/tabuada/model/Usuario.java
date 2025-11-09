@@ -12,6 +12,7 @@ public class Usuario {
 
     public void obterInformacoes(){
         Scanner leitor = new Scanner(System.in);
+
         System.out.print("Qual o valor do multiplicando? ");
         multiplicando = leitor.nextInt();
 
@@ -40,15 +41,16 @@ public class Usuario {
         while (i < tamanho){
             int resultado = multiplicando * multiplicadorInicial;
             tabuada[i] = multiplicando + " x " + multiplicadorInicial + " = " + resultado;
-            multiplicadorInicial = multiplicadorInicial + 1;
-            i = i + 1;
-
-            exibirTabuada();
+            multiplicadorInicial++;
+            i++;
         }
 
+        exibirTabuada();
     }
 
     public void exibirTabuada(){
+        System.out.println("");
+        System.out.println("");
         System.out.println("Resultado da tabuada: ");
 
         int i = 0;
