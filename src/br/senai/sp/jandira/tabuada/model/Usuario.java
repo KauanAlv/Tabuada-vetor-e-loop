@@ -43,8 +43,10 @@ public class Usuario {
             multiplicadorInicial = multiplicadorInicial + 1;
             i = i + 1;
 
-            exibirTabuada();
+
         }
+
+        exibirTabuada();
 
     }
 
