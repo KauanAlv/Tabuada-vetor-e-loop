@@ -28,9 +28,9 @@ public class Usuario {
         int apoio = 0;
 
         if (multiplicadorFinal < multiplicadorInicial){
-           apoio = multiplicadorFinal;
-           multiplicadorFinal = multiplicadorInicial;
-           multiplicadorInicial = apoio;
+            apoio = multiplicadorFinal;
+            multiplicadorFinal = multiplicadorInicial;
+            multiplicadorInicial = apoio;
         }
 
         tamanho = multiplicadorFinal - multiplicadorInicial + 1;
