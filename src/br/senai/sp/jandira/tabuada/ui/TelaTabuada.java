@@ -11,6 +11,12 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardOpenOption;
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 public class TelaTabuada extends Application {
@@ -25,14 +31,14 @@ public class TelaTabuada extends Application {
 
         //Criar o root - componente de layout principal
         VBox root = new VBox();
-        root.setStyle("-fx-background-color: #0d3cb2;");
+        root.setStyle("-fx-background-color: #2e5ef5;");
 
         //Criação da cena com o root dentro dela
         Scene scene = new Scene(root);
 
         //Criação do header da tela
         VBox header = new VBox();
-        header.setStyle("-fx-background-color: #0d3cb2;");
+        header.setStyle("-fx-background-color: #1546dc;");
 
         //Conteúdo do header
         //Titulo
@@ -53,7 +59,7 @@ public class TelaTabuada extends Application {
         gridFormulario.setVgap(10);
         gridFormulario.setHgap(10);
         gridFormulario.setPadding(new Insets(16, 16, 16, 8));
-        gridFormulario.setStyle("-fx-background-color: #0d8cb2;");
+        gridFormulario.setStyle("-fx-background-color: #2e5ef5;");
 
         //Colocando o conteúdo do gridFormulario
         Label lblMultiplicando = new Label("Multiplicando:");
@@ -82,7 +88,6 @@ public class TelaTabuada extends Application {
         boxBotoes.setSpacing(10);
         boxBotoes.setPadding(new Insets(8));
         paneButtons.getChildren().add(boxBotoes);
-        //boxBotoes.setStyle("-fx-background-color: #d6c396;");
 
         //Colocando o conteúdo do boxBotoes
         Button btCalcular = new Button("Calcular");
@@ -97,7 +102,6 @@ public class TelaTabuada extends Application {
         //Criação da caixa de resultado
         VBox boxResultados = new VBox();
         //boxResultados.setPrefHeight(100);
-        //boxResultados.setStyle("-fx-background-color: #fff200;");
 
         //Colocando o conteúdo do boxResultado
         Label lblResultados = new Label("Resultado:");
@@ -107,7 +111,7 @@ public class TelaTabuada extends Application {
         listaTabuada.setPadding(new Insets(8));
         listaTabuada.setPrefHeight(200);
         listaTabuada.setPrefWidth(100);
-        listaTabuada.setStyle("-fx-background-color: #0d8cb2;");
+        listaTabuada.setStyle("-fx-background-color: #0092fc;");
 
         //Colocar os componentes do boxResultados
         boxResultados.getChildren().add(lblResultados);
@@ -124,6 +128,7 @@ public class TelaTabuada extends Application {
 
         stage.show();
 
+        //Botão Calcular
         btCalcular.setOnAction(e -> {
             Usuario tabuada = new Usuario();
 
@@ -139,16 +144,29 @@ public class TelaTabuada extends Application {
             String[] resultado = tabuada.calcularInformacoes();
             listaTabuada.getItems().clear();
             listaTabuada.getItems().addAll(resultado);
+
+            //Gravar os dados das tabuada em arquivo
+            Path arquivo = Path.of("C:\\Users\\25203696\\DS1T\\tabuada\\dados_tabuada.csv");
+
+            String dados = tfMultiplicando.getText() + ";" + tfMenorMultiplicador.getText() + ";" + tfMaiorMultiplicador.getText() + ";" + LocalDateTime.now() + "\n";
+
+            try{
+                Files.writeString(arquivo,dados,StandardOpenOption.APPEND); // APPEND é acrescentar
+            }catch (IOException erro){
+                System.out.println(erro.getMessage());
+            }
         });
 
+        //Botão Limpar
         btLimpar.setOnAction(e -> {
-            tfMultiplicando.setText("");
-            tfMenorMultiplicador.setText("");
-            tfMaiorMultiplicador.setText("");
+            tfMultiplicando.clear();
+            tfMenorMultiplicador.clear();
+            tfMaiorMultiplicador.clear();
             listaTabuada.getItems().clear();
             tfMultiplicando.requestFocus();
         });
 
+        //Botão Sair
         btSair.setOnAction(e -> {
             Alert alerta = new Alert(Alert.AlertType.CONFIRMATION, "Você quer sair do programa?", ButtonType.YES, ButtonType.NO);
             Optional<ButtonType> resposta = alerta.showAndWait();
