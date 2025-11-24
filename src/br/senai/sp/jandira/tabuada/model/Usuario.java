@@ -24,7 +24,7 @@ public class Usuario {
         calcularInformacoes();
     }
 
-    public void calcularInformacoes(){
+    public String[] calcularInformacoes(){
         int apoio = 0;
 
         if (multiplicadorFinal < multiplicadorInicial){
@@ -46,7 +46,8 @@ public class Usuario {
 
         }
 
-        exibirTabuada();
+        return  tabuada;
+        //exibirTabuada();
 
     }
 
